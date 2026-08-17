@@ -7,7 +7,9 @@ DEFAULT_DURATION = 2  # 小时
 WEEK_ORDER = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
 WEEK_EN = {"MON": "MON", "TUE": "TUE", "WED": "WED", "THU": "THU", "THR": "THU",
-           "THUR": "THU", "FRI": "FRI", "FRY": "FRI", "SAT": "SAT", "SAL": "SAT", "SUN": "SUN"}
+           "THUR": "THU", "FRI": "FRI", "FRY": "FRI", "FRB": "FRI", "SAT": "SAT", "SAL": "SAT", "SUN": "SUN"}
+WEEK_DAY = {"DAY1": "MON", "DAY2": "TUE", "DAY3": "WED", "DAY4": "THU",
+            "DAY5": "FRI", "DAY6": "SAT", "DAY7": "SUN"}
 WEEK_CN = {"星期一": "MON", "周一": "MON", "星期二": "TUE", "周二": "TUE",
            "星期三": "WED", "周三": "WED", "星期四": "THU", "周四": "THU",
            "星期五": "FRI", "周五": "FRI", "星期六": "SAT", "周六": "SAT",
@@ -16,14 +18,18 @@ WEEK_CN = {"星期一": "MON", "周一": "MON", "星期二": "TUE", "周二": "T
 DECOR_KW = ["SCHEDULE", "WEEKLY", "今日放送", "STREAMINGTODAY", "TREAMINGTODAY",
             "常规周表", "本周日程", "周间予定表", "直播安排", "LIKC", "LIKO",
             "DATE", "TO THE KOMICHI", "ASSASSIN", "BUNNY", "请支持新投稿", "播完了",
-            "CHEDULE", "EKL", "HEDUL", "ＥＫＬ"]
+            "CHEDULE", "EKL", "HEDUL", "ＥＫＬ",
+            "留言板", "提问箱", "推歌", "电台来信", "MESSAGE"]
 
 
 def find_week(text):
     t = text.strip()
-    m = re.match(r'^(MON|TUE|WED|THUR|THU|THR|FRI|FRY|SAT|SAL|SUN)\s*[.:：]?\s*(.*)$', t, re.I)
+    m = re.match(r'^(MON|TUE|WED|THUR|THU|THR|FRI|FRY|FRB|SAT|SAL|SUN)\s*[.:：]?\s*(.*)$', t, re.I)
     if m:
         return WEEK_EN[m.group(1).upper()], m.group(2).strip()
+    m = re.match(r'^(DAY\s*[1-7])\s*[.:：]?\s*(.*)$', t, re.I)
+    if m:
+        return WEEK_DAY[m.group(1).upper().replace(" ", "")], m.group(2).strip()
     m = re.match(r'^(星期一|星期二|星期三|星期四|星期五|星期六|星期日|星期天|周一|周二|周三|周四|周五|周六|周日|周天)\s*[.:：]?\s*(.*)$', t)
     if m:
         return WEEK_CN[m.group(1)], m.group(2).strip()
@@ -137,14 +143,16 @@ def fix_missing_week(sched):
     return sched
 
 
-def parse_row_aligned(blocks):
-    """星期块为锚点，内容块按 y 中心最近邻分配"""
+def parse_row_aligned(blocks, max_x=None):
+    """星期块为锚点，内容块按 y 中心最近邻分配；max_x 用于过滤右侧装饰区（如留言板）"""
     weeks, contents = [], []
     for b in blocks:
         week, rest = find_week(b["text"])
         if week:
             weeks.append((week, b, rest))
         elif not is_decor(b["text"]):
+            if max_x and b["x0"] > max_x:
+                continue
             contents.append(b)
     weeks_sorted = sorted(weeks, key=lambda w: w[1]["y0"])
     day_map, order = {}, []

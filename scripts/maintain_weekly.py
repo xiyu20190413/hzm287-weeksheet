@@ -19,11 +19,15 @@ UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 GITHUB_REPO = "xiyu20190413/hzm287"
 TWO_COLUMN = {"羽啾chu2u"}
 
-# 周表图识别关键词：星期英文/中文 + 周表标记
+# 周表图识别关键词：星期英文/中文 + DAY 标记 + 周表标记
 DAY_KW = ["MON", "TUE", "WED", "THU", "THR", "THUR", "FRI", "FRY", "SAT", "SUN",
+          "DAY1", "DAY2", "DAY3", "DAY4", "DAY5", "DAY6", "DAY7",
           "周一", "周二", "周三", "周四", "周五", "周六", "周日",
           "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日", "星期天"]
 SCHED_KW = ["SCHEDULE", "周表", "排班", "直播安排", "日程", "直播表", "本周日程"]
+
+# 右侧装饰区（如留言板）过滤阈值：x0 超过该值的块视为装饰，不进 schedule
+MAX_X = {"四时小路Komichi": 700}
 
 
 def http_get(url, referer, cookie=None):
@@ -99,7 +103,10 @@ def ocr_blocks(engine, img_path):
 
 
 def blocks_to_schedule(blocks, name):
-    sched = parse_two_column(blocks, 900) if name in TWO_COLUMN else parse_row_aligned(blocks)
+    if name in TWO_COLUMN:
+        sched = parse_two_column(blocks, 900)
+    else:
+        sched = parse_row_aligned(blocks, max_x=MAX_X.get(name))
     sched = fix_missing_week(sched)
     out = {}
     for w in WEEK_ORDER:

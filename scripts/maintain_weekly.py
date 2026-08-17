@@ -85,6 +85,36 @@ def fetch_img_src(opus_id, img_pos):
     return items[img_pos - 1]["src"]
 
 
+SUMIRI_API = "https://api.sumire.live/api/stream-plans"
+
+
+def fetch_sumire_api():
+    """从枝堇官方 API 获取本周周表，返回 {星期: [[start,end,topic],...]}。
+    API 返回结构化数据（date/startTime/title），比 OCR 更准确、更新更及时。
+    CORS 只限制浏览器端，Python 后端脚本不受影响，无需服务器转发。"""
+    today = datetime.date.today()
+    monday = today - datetime.timedelta(days=today.weekday())
+    sunday = monday + datetime.timedelta(days=6)
+    url = f"{SUMIRI_API}?from={monday.isoformat()}&to={sunday.isoformat()}"
+    d = json.loads(http_get(url, "https://api.sumire.live/").decode("utf-8"))
+    plans = d.get("plans", [])
+    sched = {w: [] for w in WEEK_ORDER}
+    for p in plans:
+        try:
+            dt = datetime.date.fromisoformat(p["date"])
+        except (ValueError, KeyError, TypeError):
+            continue
+        w = WEEK_ORDER[dt.weekday()]  # weekday(): 0=MON ... 6=SUN
+        start = p.get("startTime") or ""
+        if not start:
+            continue
+        hh, mm = map(int, start.split(":"))
+        total = hh * 60 + mm + 120  # 默认时长 2 小时
+        end = f"{total // 60 % 24:02d}:{total % 60:02d}"
+        sched[w].append([start, end, p.get("title", "")])
+    return sched
+
+
 def download_img(src, path):
     if src.startswith("http://"):
         src = "https://" + src[len("http://"):]
@@ -198,6 +228,26 @@ def main():
         st = state.get(name, {})
         mid = s.get("mid")
         blocks = None  # 检测阶段已 OCR 出的周表 blocks（复用避免重复 OCR）
+
+        # 枝堇：优先用官方 API（结构化数据，比 OCR 更准确及时，每次运行都拉最新）
+        if name == "枝堇Sumire":
+            handled = False
+            try:
+                api_sched = fetch_sumire_api()
+                if any(api_sched.get(w) for w in WEEK_ORDER):
+                    if api_sched != s["schedule"]:
+                        s["schedule"] = api_sched
+                        state[name] = {"api": True, "week_key": week_key}
+                        logs.append(f"- [{now}] {name}：更新（枝堇 API）")
+                        changed = True
+                    else:
+                        state[name] = {"api": True, "week_key": week_key}
+                        logs.append(f"- [{now}] {name}：无变化（枝堇 API）")
+                    handled = True
+            except Exception as e:
+                logs.append(f"- [{now}] {name}：API 失败（{e}），回退 OCR")
+            if handled:
+                continue
 
         # 0) 本周已更新：直接跳过（不抓取、不 OCR，避免重复计算）
         if st.get("week_key") == week_key:

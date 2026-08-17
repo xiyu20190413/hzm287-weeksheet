@@ -1,0 +1,17 @@
+# 凭证（本地，绝不入库）
+data/.sessdata
+data/.github_token
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 临时文件
+data/_tmp_*.png
+website/photo/_tmp_*.png
+
+# 工作区
+.workbuddy/
+_src_stage/
+*.skill

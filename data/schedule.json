@@ -1,0 +1,344 @@
+{
+  "site_name": "灰泽满＆287共享周表",
+  "default_duration_hours": 2,
+  "streamers": [
+    {
+      "name": "灰泽满Hazel",
+      "color": "#D3D3D3",
+      "schedule": {
+        "MON": [],
+        "TUE": [
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "topic": ""
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "topic": ""
+          }
+        ],
+        "WED": [
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "topic": "游戏"
+          }
+        ],
+        "THU": [
+          {
+            "start": "11:30",
+            "end": "13:30",
+            "topic": ""
+          }
+        ],
+        "FRI": [
+          {
+            "start": "21:00",
+            "end": "23:00",
+            "topic": ""
+          }
+        ],
+        "SAT": [
+          {
+            "start": null,
+            "end": null,
+            "topic": "待定"
+          }
+        ],
+        "SUN": [
+          {
+            "start": "21:00",
+            "end": "23:00",
+            "topic": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "四时小路Komichi",
+      "color": "#FF2231",
+      "schedule": {
+        "MON": [
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "topic": "音乐电台"
+          },
+          {
+            "start": "21:00",
+            "end": "23:00",
+            "topic": "杂谈"
+          }
+        ],
+        "TUE": [
+          {
+            "start": "21:00",
+            "end": "23:00",
+            "topic": "提问箱回"
+          }
+        ],
+        "WED": [
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "topic": "小歌一下"
+          }
+        ],
+        "THU": [
+          {
+            "start": "08:30",
+            "end": "10:30",
+            "topic": "杂谈"
+          }
+        ],
+        "FRI": [
+          {
+            "start": "21:00",
+            "end": "23:00",
+            "topic": "魔女之家"
+          }
+        ],
+        "SAT": [
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "topic": "万言堂代笔工坊"
+          },
+          {
+            "start": "19:30",
+            "end": "21:30",
+            "topic": "小歌一下"
+          }
+        ],
+        "SUN": [
+          {
+            "start": null,
+            "end": null,
+            "topic": "休"
+          }
+        ]
+      }
+    },
+    {
+      "name": "小松绿Viridis",
+      "color": "#8EB056",
+      "schedule": {
+        "MON": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "杂谈之"
+          }
+        ],
+        "TUE": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "中v歌回"
+          }
+        ],
+        "WED": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "看看视频，"
+          },
+          {
+            "start": null,
+            "end": null,
+            "topic": "吗？"
+          }
+        ],
+        "THU": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "游戏！节奏天国！"
+          }
+        ],
+        "FRI": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "聊聊行道树"
+          }
+        ],
+        "SAT": [
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "topic": "歌？杂？"
+          }
+        ],
+        "SUN": []
+      }
+    },
+    {
+      "name": "枝堇Sumire",
+      "color": "#B4A6BF",
+      "schedule": {
+        "MON": [
+          {
+            "start": "08:00",
+            "end": "10:00",
+            "topic": "早台读书"
+          },
+          {
+            "start": "16:00",
+            "end": "18:00",
+            "topic": "杂谈"
+          }
+        ],
+        "TUE": [
+          {
+            "start": "12:00",
+            "end": "14:00",
+            "topic": "午台"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "电台"
+          }
+        ],
+        "WED": [
+          {
+            "start": "13:00",
+            "end": "15:00",
+            "topic": "午台"
+          }
+        ],
+        "THU": [
+          {
+            "start": null,
+            "end": null,
+            "topic": "随机假"
+          }
+        ],
+        "FRI": [
+          {
+            "start": "10:00",
+            "end": "12:00",
+            "topic": "早台"
+          },
+          {
+            "start": "20:00",
+            "end": "22:00",
+            "topic": "神秘歌杂"
+          }
+        ],
+        "SAT": [
+          {
+            "start": "13:00",
+            "end": "15:00",
+            "topic": "午台"
+          },
+          {
+            "start": "24:00",
+            "end": "02:00",
+            "topic": "夜谈"
+          }
+        ],
+        "SUN": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "联动"
+          }
+        ]
+      }
+    },
+    {
+      "name": "羽啾chu2u",
+      "color": "#D4DA7B",
+      "schedule": {
+        "MON": [
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "topic": "外星歌杂"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "外星杂谈"
+          }
+        ],
+        "TUE": [
+          {
+            "start": null,
+            "end": null,
+            "topic": "休息！备一下邮箱！"
+          },
+          {
+            "start": null,
+            "end": null,
+            "topic": "周大前请将动漫喜好表投递"
+          }
+        ],
+        "WED": [
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "topic": "宇宙杂谈"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "来听外星见谈"
+          }
+        ],
+        "THU": [
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "topic": "外星歌杂"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "外星杂谈"
+          }
+        ],
+        "FRI": [
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "topic": "外星歌杂"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "宇宙电台"
+          }
+        ],
+        "SAT": [
+          {
+            "start": "14:00",
+            "end": "16:00",
+            "topic": "宇宙歌杂"
+          },
+          {
+            "start": "22:00",
+            "end": "00:00",
+            "topic": "小众动漫提问箱"
+          }
+        ],
+        "SUN": [
+          {
+            "start": "19:00",
+            "end": "21:00",
+            "topic": "联动捡垃圾"
+          },
+          {
+            "start": null,
+            "end": null,
+            "topic": "休息！准备周日晚的故事"
+          }
+        ]
+      }
+    }
+  ]
+}

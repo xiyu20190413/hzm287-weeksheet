@@ -192,6 +192,11 @@ def main():
         mid = s.get("mid")
         blocks = None  # 检测阶段已 OCR 出的周表 blocks（复用避免重复 OCR）
 
+        # 0) 本周已更新：直接跳过（不抓取、不 OCR，避免重复计算）
+        if st.get("week_key") == week_key:
+            logs.append(f"- [{now}] {name}：跳过（本周已更新）")
+            continue
+
         # 1) 优先用置顶动态自动抓取 + 智能识别周表图
         items = fetch_pinned_items(mid) if mid else None
         if items:
@@ -212,11 +217,6 @@ def main():
         if not st:
             state[name] = {"img_src": src, "week_key": None}
             logs.append(f"- [{now}] {name}：首次建立基线")
-            continue
-
-        # 3) 本周已更新，跳过
-        if st.get("week_key") == week_key:
-            logs.append(f"- [{now}] {name}：跳过（本周已更新）")
             continue
 
         # 4) 周表图无变化 → 清空（等待新周表）
